@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://player/PlayerSprites.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://player/Player.gd" type="Script" id=2]
+[ext_resource path="res://player/PlayerSprite.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6.05946, 9.98523 )
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 0, -0.353554 )
+collision_mask = 15
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="PlayerSprite" type="AnimatedSprite" parent="."]
+z_index = 1
+frames = ExtResource( 1 )
+animation = "idle"
+centered = false
+offset = Vector2( -8, -22 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -8 )
+shape = SubResource( 1 )
+[connection signal="animate" from="." to="PlayerSprite" method="_on_Player_animate"]
