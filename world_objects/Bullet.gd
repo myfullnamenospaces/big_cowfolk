@@ -1,7 +1,10 @@
 extends RigidBody2D
 
+var fired_by = -1
+
 func _on_Bullet_body_entered(body):
-	if body == get_parent():
+	var player = get_node("../Players/%s" % fired_by)
+	if body == player:
 		return
 	if body.has_method("hit"):
 		body.hit(self)
@@ -15,4 +18,5 @@ func click(body):
 	print("clack")
 
 func kill(body):
-	get_parent().kill(body)
+	var player = get_node("%s" % fired_by)
+	player.kill(body)

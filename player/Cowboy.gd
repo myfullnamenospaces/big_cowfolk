@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var player_name = "Clint"
 var life = 1
 var motion = Vector2(0,0)
 var bullet_res = preload("res://world_objects/Bullet.tscn")
@@ -45,4 +46,6 @@ func die():
 
 func grow():
 	self.scale += Vector2(0.5, 0.5)
-	
+
+func set_player_name(name):
+	player_name = name

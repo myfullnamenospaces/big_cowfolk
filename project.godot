@@ -16,12 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="This Town Ain't Big Enough"
-run/main_scene="res://town/Town.tscn"
+run/main_scene="res://lobby/Lobby.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-gamestate="*res://lobby/Gamestate.gd"
+gamestate="*res://Gamestate.gd"
 
 [display]
 
