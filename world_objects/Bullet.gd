@@ -18,5 +18,5 @@ func click(body):
 	print("clack")
 
 func kill(body):
-	var player = get_node("%s" % fired_by)
-	player.kill(body)
+	var player = get_node("../Players/%s" % fired_by)
+	player.grow()
