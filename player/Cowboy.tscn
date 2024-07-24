@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://gfx/Player 2 Walking sheet.png" type="Texture" id=1]
-[ext_resource path="res://gfx/Player 2 Punch.png" type="Texture" id=2]
+[ext_resource path="res://gfx/Player 2 Walking sheet.png" type="Texture2D" id=1]
+[ext_resource path="res://gfx/Player 2 Punch.png" type="Texture2D" id=2]
 [ext_resource path="res://player/Cowboy.gd" type="Script" id=3]
 [ext_resource path="res://player/CowboySprite.gd" type="Script" id=4]
-[ext_resource path="res://gfx/Blank Gravestone.png" type="Texture" id=5]
+[ext_resource path="res://gfx/Blank Gravestone.png" type="Texture2D" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -47,7 +47,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 6.23624, 9.98523 )
 
-[node name="Cowboy" type="KinematicBody2D"]
+[node name="Cowboy" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 15
 script = ExtResource( 3 )
@@ -55,7 +55,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CowboySprite" type="AnimatedSprite" parent="."]
+[node name="CowboySprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
 frames = SubResource( 5 )
 animation = "idle"

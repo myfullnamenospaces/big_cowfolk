@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 
 func _on_Cowboy_animate(motion, life):
 	if life < 0:

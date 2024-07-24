@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 var player_name = "Clint"
 var life = 1
@@ -6,8 +6,8 @@ var motion = Vector2(0,0)
 var bullet_res = preload("res://world_objects/Bullet.tscn")
 var bullets = 6
 
-puppet var puppet_pos = Vector2()
-puppet var puppet_motion = Vector2()
+@onready var puppet_pos = Vector2()
+@onready var puppet_motion = Vector2()
 
 const SPEED = 150
 const BULLET_SPEED = 1000
@@ -18,21 +18,22 @@ signal animate
 func _physics_process(_delta):
 	take_input()
 	
-	if is_network_master():
-		rset("puppet_motion", motion)
-		rset("puppet_pos", position)
+	if is_multiplayer_authority():
+		puppet_motion = motion
+		puppet_pos = position
 	else:
 		position = puppet_pos
 		motion = puppet_motion
 	
-	animate()
+	#animate()
 	
-	move_and_slide(motion.normalized() * SPEED)
-	if not is_network_master():
+	set_velocity(motion.normalized() * SPEED)
+	move_and_slide()
+	if not is_multiplayer_authority():
 		puppet_pos = position # To avoid jitter
 
 func take_input():
-	if life < 0 or not is_network_master():
+	if life < 0 or not is_multiplayer_authority():
 		return
 
 	reload()
@@ -58,7 +59,7 @@ func shoot():
 		var bullet_vel = direction*BULLET_SPEED
 		
 		bullets -= 1
-		rpc("fire_bullet", fire_location, bullet_vel, get_tree().get_network_unique_id())
+		fire_bullet.rpc(fire_location, bullet_vel, multiplayer.get_unique_id())
 
 func move():
 	motion = Vector2(0,0)
@@ -71,8 +72,8 @@ func move():
 	if Input.is_action_pressed("p1_down"):
 		motion.y = 1
 
-func animate():
-	emit_signal("animate", motion, life)
+#func animate():
+	#emit_signal("animate", motion, life)
 
 func hit(hitter):
 	if life < 0:
@@ -92,8 +93,8 @@ func grow():
 func set_player_name(name):
 	player_name = name
 
-sync func fire_bullet(loc, vel, player_id):
-	var bullet = bullet_res.instance()
+@rpc("any_peer", "call_local") func fire_bullet(loc, vel, player_id):
+	var bullet = bullet_res.instantiate()
 	bullet.position = loc
 	bullet.set_linear_velocity(vel)
 	bullet.fired_by = player_id

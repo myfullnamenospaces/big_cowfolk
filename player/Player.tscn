@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6.05946, 9.98523 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="CharacterBody2D"]
 position = Vector2( 0, -0.353554 )
 collision_mask = 15
 script = ExtResource( 2 )
@@ -15,7 +15,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CowboySprite" type="AnimatedSprite" parent="."]
+[node name="CowboySprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
 frames = ExtResource( 1 )
 animation = "idle"
@@ -27,4 +27,5 @@ script = ExtResource( 3 )
 visible = false
 position = Vector2( 0, -8 )
 shape = SubResource( 1 )
+
 [connection signal="animate" from="." to="CowboySprite" method="_on_Player_animate"]

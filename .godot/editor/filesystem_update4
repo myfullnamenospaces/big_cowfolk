@@ -1,0 +1,6 @@
+res://default_env.tres
+res://lobby/Lobby.tscn
+res://player/Cowboy.gd
+res://player/Player.gd
+res://lobby/Lobby.gd
+res://Gamestate.gd

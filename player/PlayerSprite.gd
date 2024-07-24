@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 
 func _on_Player_animate(motion, life):
 	if life < 0:
