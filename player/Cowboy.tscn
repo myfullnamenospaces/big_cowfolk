@@ -1,70 +1,82 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://bxhviv6gp3w5e"]
 
-[ext_resource path="res://gfx/Player 2 Walking sheet.png" type="Texture2D" id=1]
-[ext_resource path="res://gfx/Player 2 Punch.png" type="Texture2D" id=2]
-[ext_resource path="res://player/Cowboy.gd" type="Script" id=3]
-[ext_resource path="res://player/CowboySprite.gd" type="Script" id=4]
-[ext_resource path="res://gfx/Blank Gravestone.png" type="Texture2D" id=5]
+[ext_resource type="Texture2D" uid="uid://niakcfovv12v" path="res://gfx/Player 2 Walking sheet.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bibfdxcfc1dyx" path="res://gfx/Player 2 Punch.png" id="2"]
+[ext_resource type="Script" path="res://player/Cowboy.gd" id="3"]
+[ext_resource type="Script" path="res://player/CowboySprite.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://dh23kpi2kr3ms" path="res://gfx/Blank Gravestone.png" id="5"]
 
-[sub_resource type="AtlasTexture" id=1]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 16, 24 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 16, 24)
 
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 16, 24 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(16, 0, 16, 24)
 
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 24 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(32, 0, 16, 24)
 
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 24 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
+region = Rect2(48, 0, 16, 24)
 
-[sub_resource type="SpriteFrames" id=5]
-animations = [ {
-"frames": [ ExtResource( 2 ) ],
+[sub_resource type="SpriteFrames" id="5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5")
+}],
 "loop": false,
-"name": "idle",
+"name": &"dead",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2")
+}],
 "loop": false,
-"name": "dead",
+"name": &"idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}],
 "loop": true,
-"name": "walk",
+"name": &"walk",
 "speed": 5.0
-} ]
+}]
 
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 6.23624, 9.98523 )
+[sub_resource type="RectangleShape2D" id="6"]
+size = Vector2(12.4725, 19.9705)
 
 [node name="Cowboy" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 15
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true
-}
+script = ExtResource("3")
 
 [node name="CowboySprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
-frames = SubResource( 5 )
-animation = "idle"
+sprite_frames = SubResource("5")
+animation = &"idle"
 centered = false
-offset = Vector2( -8, -22 )
-script = ExtResource( 4 )
+offset = Vector2(-8, -22)
+script = ExtResource("4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, -8 )
-shape = SubResource( 6 )
+position = Vector2(0, -8)
+shape = SubResource("6")
+
 [connection signal="animate" from="." to="CowboySprite" method="_on_Cowboy_animate"]

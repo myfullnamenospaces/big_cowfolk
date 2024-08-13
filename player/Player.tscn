@@ -1,31 +1,26 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://ddk3ppx26ns6w"]
 
-[ext_resource path="res://player/PlayerSprites.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://player/Player.gd" type="Script" id=2]
-[ext_resource path="res://player/PlayerSprite.gd" type="Script" id=3]
+[ext_resource type="SpriteFrames" uid="uid://ki8i2g43nv2x" path="res://player/PlayerSprites.tres" id="1"]
+[ext_resource type="Script" path="res://player/Player.gd" id="2"]
+[ext_resource type="Script" path="res://player/PlayerSprite.gd" id="3"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6.05946, 9.98523 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(12.1189, 19.9705)
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2( 0, -0.353554 )
+position = Vector2(0, -0.353554)
 collision_mask = 15
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
+script = ExtResource("2")
 
 [node name="CowboySprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
-frames = ExtResource( 1 )
-animation = "idle"
+sprite_frames = ExtResource("1")
+animation = &"walk"
 centered = false
-offset = Vector2( -8, -22 )
-script = ExtResource( 3 )
+offset = Vector2(-8, -22)
+script = ExtResource("3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, -8 )
-shape = SubResource( 1 )
-
-[connection signal="animate" from="." to="CowboySprite" method="_on_Player_animate"]
+position = Vector2(0, -8)
+shape = SubResource("1")

@@ -6,14 +6,14 @@ var motion = Vector2(0,0)
 var bullet_res = preload("res://world_objects/Bullet.tscn")
 var bullets = 6
 
+@onready var _animation_player = $CowboySprite
+
 @onready var puppet_pos = Vector2()
 @onready var puppet_motion = Vector2()
 
 const SPEED = 150
 const BULLET_SPEED = 1000
 const RELOAD_TIME = 1
-
-signal animate
 
 func _physics_process(_delta):
 	take_input()
@@ -24,8 +24,6 @@ func _physics_process(_delta):
 	else:
 		position = puppet_pos
 		motion = puppet_motion
-	
-	#animate()
 	
 	set_velocity(motion.normalized() * SPEED)
 	move_and_slide()
@@ -62,7 +60,7 @@ func shoot():
 		fire_bullet.rpc(fire_location, bullet_vel, multiplayer.get_unique_id())
 
 func move():
-	motion = Vector2(0,0)
+	motion = Vector2.ZERO
 	if Input.is_action_pressed("p1_left"):
 		motion.x = -1
 	if Input.is_action_pressed("p1_right"):
@@ -71,9 +69,15 @@ func move():
 		motion.y = -1
 	if Input.is_action_pressed("p1_down"):
 		motion.y = 1
+	
+	if motion.length() != 0:
+		_animation_player.animation = "walk"
+		self.rotation = motion.angle() + PI / 2.0
 
-#func animate():
-	#emit_signal("animate", motion, life)
+		_animation_player.play()
+		
+	else:
+		_animation_player.stop()
 
 func hit(hitter):
 	if life < 0:
